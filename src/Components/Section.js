@@ -21,6 +21,7 @@ const Grid = styled.div`
   grid-gap: 25px;
 `;
 
+//Section takes in two things: [title, children]
 const Section = ({ title, children }) => (
   <Container>
     <Title>{title}</Title>

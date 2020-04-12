@@ -12,6 +12,15 @@ const Container = styled.div`
   padding: 0px 20px;
 `;
 
+//The presenter Architecture
+/*
+<Section : TOP RATED SHOW
+  <Poster : each Show with all the params: [key, id, imageUrl, title, rating, years]
+  <Poster
+  <Poster
+  <Poster
+*/
+
 const TVPresenter = ({ topRated, popular, airingToday, loading, error }) =>
   loading ? (
     <Loader />
