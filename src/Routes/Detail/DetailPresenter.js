@@ -19,6 +19,8 @@ const Backdrop = styled.div`
   background-image: url(${props => props.bgImage});
   background-position: center center;
   background-size: cover;
+  filter: blur(3px);
+  opacity: 0.5;
 `;
 
 const DetailPresenter = ({ result, loading, error }) => (
