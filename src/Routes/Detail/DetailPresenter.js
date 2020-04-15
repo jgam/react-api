@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Loader from '../../Components/Loader';
+import {Helmet} from 'react-helmet';
 
 const Container = styled.div`
   height: calc(100vh - 50px);
@@ -67,8 +68,20 @@ line-height: 1.5;
 width: 50%;`;
 
 const DetailPresenter = ({ result, loading, error }) => (
-  loading ? <Loader /> : 
+  loading ? 
+  <>
+    <Helmet>
+      <title>Loading | Nomflix</title>
+    </Helmet>
+    <Loader />
+  </> : 
   <Container>
+    <Helmet>
+        <title>
+          {result.original_title ? result.original_title : result.original_name}{" "}
+          | Nomflix
+        </title>
+    </Helmet>
     <Backdrop bgImage={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}/>
     <Content>
       <Cover bgImage={result.poster_path? `https://image.tmdb.org/t/p/original${result.poster_path}`: require("../../assets/noPosterSmall.png")} />
