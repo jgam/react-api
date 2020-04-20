@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Loader from '../../Components/Loader';
+import Video from '../../Components/Video';
 import { Helmet } from 'react-helmet';
 
 const Container = styled.div`
@@ -75,6 +76,8 @@ const TwoButtons = styled.button``;
 const ChallengeContainer = styled.div``;
 
 function DetailPresenter({ result, loading, error }) {
+  const [isYoutube, setYoutube] = useState(false);
+
   return loading ? (
     <>
       <Helmet>
@@ -133,15 +136,19 @@ function DetailPresenter({ result, loading, error }) {
           </ItemContainer>
           <Overview>{result.overview}</Overview>
           <ButtonContainer>
-            <TwoButtons>Videos</TwoButtons>
+            <TwoButtons onClick={setYoutube(true)}>Videos</TwoButtons>
             <a>
               <TwoButtons>Productions</TwoButtons>
             </a>
           </ButtonContainer>
           <ChallengeContainer>
-            <iframe
-              src={`https://www.youtube.com/embed/${result.videos.results[0].key}`}
-            ></iframe>
+            {isYoutube ? (
+              <Video
+                sourceURL={`https://www.youtube.com/embed/${result.videos.results[0].key}`}
+              />
+            ) : (
+              'not yet boi!'
+            )}
           </ChallengeContainer>
         </Data>
       </Content>
