@@ -78,12 +78,6 @@ const ChallengeContainer = styled.div``;
 function DetailPresenter({ result, loading, error }) {
   const [isYoutube, setYoutube] = useState(false);
 
-  function buttonClick(e) {
-    e.preventDefault();
-    console.log('video button Clicked');
-    setYoutube(true);
-  }
-
   return loading ? (
     <>
       <Helmet>
@@ -142,7 +136,7 @@ function DetailPresenter({ result, loading, error }) {
           </ItemContainer>
           <Overview>{result.overview}</Overview>
           <ButtonContainer>
-            <TwoButtons onClick={buttonClick}>Videos</TwoButtons>
+            <TwoButtons onClick={setYoutube(true)}>Videos</TwoButtons>
             <a>
               <TwoButtons>Productions</TwoButtons>
             </a>
