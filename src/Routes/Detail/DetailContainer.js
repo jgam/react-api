@@ -45,6 +45,8 @@ export default class extends React.Component {
   render() {
     const { result, error, loading } = this.state;
     console.log(this.state);
+    console.log(result);
+    console.log('before calling presenter bvoiz!');
     return <DetailPresenter result={result} error={error} loading={loading} />;
   }
 }
