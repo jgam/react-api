@@ -48,20 +48,6 @@ function Productions({ companies, countries, isMovie, moreInfo }) {
           </CountryLanguage>
         </>
       )}
-      <ProdTitle>{isMovie ? 'Production Countries' : 'Seasons'}</ProdTitle>
-      {isMovie ? (
-        <ProductionBorder>
-          {countries.map((country, index) => (
-            <ProductionCountries key={index} country={country} />
-          ))}
-        </ProductionBorder>
-      ) : (
-        <ProductionBorder>
-          {/* {countries.map((season, index) => (
-            <Season key={index} poster={season} />
-          ))} */}
-        </ProductionBorder>
-      )}
     </div>
   );
 }
