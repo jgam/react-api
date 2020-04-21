@@ -87,8 +87,8 @@ const TwoButtons = styled.button`
   letter-spacing: 0.05rem;
   border-radius: 30px;
   margin-right: 20px;
-  &:focus {
-    outline: 2px dotted #55d7dc;
+  &:hover {
+    opacity: 0.7;
   }
 `;
 
