@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Route, Link, withRouter, Switch } from "react-router-dom";
+import { Route, Link, withRouter, Switch } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 
 import Season from '../../Components/Season';
@@ -82,25 +82,26 @@ const TwoButtons = styled.button`
   border: none;
   cursor: pointer;
   line-height: 1.5;
-  font: 200 .6rem 'Roboto Slab', sans-serif;
+  font: 200 0.6rem 'Roboto Slab', sans-serif;
   padding: 1em 2em;
   letter-spacing: 0.05rem;
   border-radius: 30px;
   margin-right: 20px;
-  &:focus {outline: 2px dotted #55d7dc; }
-
+  &:focus {
+    outline: 2px dotted #55d7dc;
+  }
 `;
 
 const ChallengeContainer = styled.div``;
 
 const IMDBButton = styled.span`
   font-size: 13px;
-  color:black;
+  color: black;
   font-weight: bold;
   background-color: #f5c518;
   border: 1px solid black;
-  &:hover{
-    opacity:0.6
+  &:hover {
+    opacity: 0.6;
   }
 `;
 
@@ -117,9 +118,11 @@ function DetailPresenter({ pathname, result, loading, error, isMovie }) {
     e.preventDefault();
     setYoutube(false);
   }
-  console.log(result)
-  console.log('here is presenter')
+  console.log(result);
+  console.log('here is presenter');
   console.log(pathname);
+  const currentURL = isMovie ? 'movie' : 'show';
+  console.log(currentURL);
   return loading ? (
     <>
       <Helmet>
@@ -182,26 +185,45 @@ function DetailPresenter({ pathname, result, loading, error, isMovie }) {
           </ItemContainer>
           <Overview>{result.overview}</Overview>
           <ButtonContainer>
-            <Link to={`${pathname}/videos`}><TwoButtons>Videos</TwoButtons></Link>
-            <TwoButtons onClick={buttonnClick}>Productions</TwoButtons>
-            <Link to={`/show/${result.id}/seasons`}>Seasons</Link>
+            <Link to={`/${currentURL}/${result.id}/videos`}>
+              <TwoButtons>Videos</TwoButtons>
+            </Link>
+            <Link to={`/${currentURL}/${result.id}/productions`}>
+              <TwoButtons>Productions</TwoButtons>
+            </Link>
+            {!isMovie ? (
+              <Link to={`/show/${result.id}/seasons`}>
+                <TwoButtons>Seasons</TwoButtons>
+              </Link>
+            ) : null}
           </ButtonContainer>
           <ChallengeContainer>
             <Switch>
-              <Route path={`${pathname}/videos`}>
-                <Video sourceURL={`https://www.youtube.com/embed/${result.videos.results[0].key}`}/></Route>
-               <Route 
-                path={`${pathname}/productions`}
-                component={() => 
-                  <Productions 
-                  companies={result.production_companies}
-                  countries={
-                    isMovie ? result.production_countries : result.seasons
-                  }
-                  isMovie={isMovie}
-                  moreInfo={result}/> } 
-               />
-              <Route path='/show/:id/seasons' component={() => <Season poster={result.seasons}/>} />
+              <Route
+                path={`/${currentURL}/:id/videos`}
+                component={() => (
+                  <Video
+                    sourceURL={`https://www.youtube.com/embed/${result.videos.results[0].key}`}
+                  />
+                )}
+              />
+              <Route
+                path={`/${currentURL}/:id/productions`}
+                component={() => (
+                  <Productions
+                    companies={result.production_companies}
+                    countries={
+                      isMovie ? result.production_countries : result.seasons
+                    }
+                    isMovie={isMovie}
+                    moreInfo={result}
+                  />
+                )}
+              />
+              <Route
+                path='/show/:id/seasons'
+                component={() => <Season poster={result.seasons} />}
+              />
             </Switch>
           </ChallengeContainer>
         </Data>
