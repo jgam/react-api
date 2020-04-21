@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Loader from '../../Components/Loader';
+import Productions from '../../Components/Productions';
 import Video from '../../Components/Video';
 import { Helmet } from 'react-helmet';
 
@@ -84,6 +85,11 @@ function DetailPresenter({ result, loading, error }) {
     setYoutube(true);
   }
 
+  function buttonnClick(e) {
+    e.preventDefault();
+    setYoutube(false);
+  }
+
   return loading ? (
     <>
       <Helmet>
@@ -135,17 +141,19 @@ function DetailPresenter({ result, loading, error }) {
                     : `${genre.name} / `
                 )}
             </Item>
-            <Divider> • </Divider>
-            <a href={`https://www.imdb.com/title/${result.imdb_id}`}>
-              <button>IMDB</button>
-            </a>
+            {result.imdb_id && (
+              <>
+                <Divider> • </Divider>
+                <a href={`https://www.imdb.com/title/${result.imdb_id}`}>
+                  <button>IMDB</button>
+                </a>
+              </>
+            )}
           </ItemContainer>
           <Overview>{result.overview}</Overview>
           <ButtonContainer>
             <TwoButtons onClick={buttonClick}>Videos</TwoButtons>
-            <a>
-              <TwoButtons>Productions</TwoButtons>
-            </a>
+            <TwoButtons onClick={buttonnClick}>Productions</TwoButtons>
           </ButtonContainer>
           <ChallengeContainer>
             {isYoutube ? (
@@ -153,7 +161,10 @@ function DetailPresenter({ result, loading, error }) {
                 sourceURL={`https://www.youtube.com/embed/${result.videos.results[0].key}`}
               />
             ) : (
-              'not yet boi!'
+              <Productions
+                companies={result.production_companies}
+                countries={result.production_countries}
+              />
             )}
           </ChallengeContainer>
         </Data>

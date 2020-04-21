@@ -8,6 +8,16 @@ const api = axios.create({
   },
 });
 
+const apiImage = axios.create({
+  baseURL: 'https://api.themoviedb.org/t/p/w500/',
+  params: {
+    api_key: 'b8ea99bee79793ee5cbdb7caf126e4ea',
+    language: 'en-US',
+  },
+});
+
+const proxyurl = 'https://cors-anywhere.herokuapp.com/';
+
 export const moviesApi = {
   nowPlaying: () => api.get('movie/now_playing'),
   upcoming: () => api.get('movie/upcoming'),
@@ -18,6 +28,7 @@ export const moviesApi = {
         append_to_response: 'videos',
       },
     }),
+  movieImage: (id) => apiImage.get(`$(id)`),
   search: (term) =>
     api.get('search/movie', {
       params: {
