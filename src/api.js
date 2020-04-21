@@ -9,12 +9,19 @@ const api = axios.create({
 });
 
 const apiImage = axios.create({
-  baseURL: 'https://api.themoviedb.org/t/p/w500/',
+  baseURL:
+    'https://cors-anywhere.herokuapp.com/https://image.tmdb.org/t/p/w500/',
   params: {
     api_key: 'b8ea99bee79793ee5cbdb7caf126e4ea',
     language: 'en-US',
   },
 });
+
+const apiproxy = axios.create({
+  baseURL: 'https://yts-proxy.now.sh',
+});
+export const getMoives = (page = 1) =>
+  api.get('/list_movies.json', { params: { page, limit: 20 } });
 
 const proxyurl = 'https://cors-anywhere.herokuapp.com/';
 
@@ -28,7 +35,10 @@ export const moviesApi = {
         append_to_response: 'videos',
       },
     }),
-  movieImage: (id) => apiImage.get(`$(id)`),
+  movieImage: (id) =>
+    apiImage.get(`${id}`, {
+      params: {},
+    }),
   search: (term) =>
     api.get('search/movie', {
       params: {

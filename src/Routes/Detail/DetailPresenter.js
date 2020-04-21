@@ -70,13 +70,15 @@ opacity: 0.7;
 line-height: 1.5;
 width: 50%;`;
 
-const ButtonContainer = styled.div``;
+const ButtonContainer = styled.div`
+  margin-bottom: 20px;
+`;
 
 const TwoButtons = styled.button``;
 
 const ChallengeContainer = styled.div``;
 
-function DetailPresenter({ result, loading, error }) {
+function DetailPresenter({ result, loading, error, isMovie }) {
   const [isYoutube, setYoutube] = useState(false);
 
   function buttonClick(e) {
@@ -163,7 +165,11 @@ function DetailPresenter({ result, loading, error }) {
             ) : (
               <Productions
                 companies={result.production_companies}
-                countries={result.production_countries}
+                countries={
+                  isMovie ? result.production_countries : result.seasons
+                }
+                isMovie={isMovie}
+                moreInfo={result}
               />
             )}
           </ChallengeContainer>

@@ -2,38 +2,39 @@ import React, { useState, useEffect } from 'react';
 import { moviesApi } from '../api';
 
 import Loader from '../Components/Loader';
+import styled from 'styled-components';
+
+const Company = styled.div`
+  position: relative;
+  height: 200px;
+  width: 200px;
+`;
+
+const Backdrop = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  background-image: url(${(props) => props.bgImage});
+  background-position: center center;
+  background-size: cover;
+  justify-contents: center;
+  align-items: center;
+`;
+
+const CompanyName = styled.div`
+  margin-top: 20px;
+  margin-bottom: 20px;
+`;
 
 function ProductionCompanies({ company, company_logo }) {
-  const [mimage, setImage] = useState();
-  const [loading, setLoading] = useState(true);
-
-  async function getMovieimage(id) {
-    try {
-      const movieImage = await moviesApi.movieImage(id);
-      //here set movies
-      setImage(movieImage);
-    } catch (e) {
-      console.log(e);
-    } finally {
-      //setLoading false
-      setLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    getMovieimage(company_logo);
-  }, []);
-
-  if (loading) {
-    return <Loader />;
-  } else {
-    return (
-      <div>
-        {mimage}
-        {company}
-      </div>
-    );
-  }
+  return (
+    <Company>
+      <CompanyName>{company}</CompanyName>
+      {company_logo && (
+        <Backdrop bgImage={`https://image.tmdb.org/t/p/w400/${company_logo}`} />
+      )}
+    </Company>
+  );
 }
 
 export default ProductionCompanies;

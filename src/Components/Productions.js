@@ -3,15 +3,35 @@ import ProductionCountries from './ProductionCountries';
 import ProductionCompanies from './ProductionCompanies';
 import styled from 'styled-components';
 
-const CompaniesBorder = styled.div``;
+import Season from '../Components/Season';
 
-const ProductionBorder = styled.div``;
+const CompaniesBorder = styled.div`
+  display: flex;
+  position: relative;
+`;
 
-function Productions({ companies, countries }) {
+const ProductionBorder = styled.div`
+  display: flex;
+  position: relative;
+`;
+
+const ProdTitle = styled.h3`
+  margin-bottom: 15px;
+  font-size: 25px;
+  font-weight: 400;
+`;
+
+const CountryLanguage = styled.div`
+  font-size: 20px;
+  font-weight: 300;
+  margin: 20px 30px;
+`;
+
+function Productions({ companies, countries, isMovie, moreInfo }) {
   return (
     <div>
+      <ProdTitle>Production Companies</ProdTitle>
       <CompaniesBorder>
-        Production Companies
         {companies.map((company) => (
           <ProductionCompanies
             key={company.id}
@@ -20,13 +40,28 @@ function Productions({ companies, countries }) {
           />
         ))}
       </CompaniesBorder>
-
-      <ProductionBorder>
-        Production Countries
-        {countries.map((country, index) => (
-          <ProductionCountries key={index} country={country} />
-        ))}
-      </ProductionBorder>
+      {isMovie ? null : (
+        <>
+          <ProdTitle>Country and Language</ProdTitle>
+          <CountryLanguage>
+            {moreInfo.origin_country[0]} | {moreInfo.original_language}
+          </CountryLanguage>
+        </>
+      )}
+      <ProdTitle>{isMovie ? 'Production Countries' : 'Seasons'}</ProdTitle>
+      {isMovie ? (
+        <ProductionBorder>
+          {countries.map((country, index) => (
+            <ProductionCountries key={index} country={country} />
+          ))}
+        </ProductionBorder>
+      ) : (
+        <ProductionBorder>
+          {countries.map((season, index) => (
+            <Season key={index} poster={season} />
+          ))}
+        </ProductionBorder>
+      )}
     </div>
   );
 }
