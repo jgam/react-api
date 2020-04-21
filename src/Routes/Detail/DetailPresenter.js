@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import Loader from '../../Components/Loader';
 import Productions from '../../Components/Productions';
@@ -74,9 +74,33 @@ const ButtonContainer = styled.div`
   margin-bottom: 20px;
 `;
 
-const TwoButtons = styled.button``;
+const TwoButtons = styled.button`
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  line-height: 1.5;
+  font: 200 .6rem 'Roboto Slab', sans-serif;
+  padding: 1em 2em;
+  letter-spacing: 0.05rem;
+  border-radius: 30px;
+  margin-right: 20px;
+  &:focus {outline: 2px dotted #55d7dc; }
+
+`;
 
 const ChallengeContainer = styled.div``;
+
+const IMDBButton = styled.span`
+  font-size: 13px;
+  color:black;
+  font-weight: bold;
+  background-color: #f5c518;
+  border: 1px solid black;
+  &:hover{
+    opacity:0.6
+  }
+`;
 
 function DetailPresenter({ result, loading, error, isMovie }) {
   const [isYoutube, setYoutube] = useState(false);
@@ -147,7 +171,7 @@ function DetailPresenter({ result, loading, error, isMovie }) {
               <>
                 <Divider> • </Divider>
                 <a href={`https://www.imdb.com/title/${result.imdb_id}`}>
-                  <button>IMDB</button>
+                  <IMDBButton>IMDB</IMDBButton>
                 </a>
               </>
             )}
