@@ -57,9 +57,9 @@ function Productions({ companies, countries, isMovie, moreInfo }) {
         </ProductionBorder>
       ) : (
         <ProductionBorder>
-          {countries.map((season, index) => (
+          {/* {countries.map((season, index) => (
             <Season key={index} poster={season} />
-          ))}
+          ))} */}
         </ProductionBorder>
       )}
     </div>

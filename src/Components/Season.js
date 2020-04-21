@@ -19,15 +19,30 @@ const SeasonDiv = styled.div`
   align-items: center;
 `;
 
+const CurrentSeason = styled.div`
+  display:flex
+`;
+
 function Season(poster) {
   console.log(poster);
+  console.log(poster.poster);
+  console.log(poster.poster[0].name)
+  //now poster is differen
+  poster.poster.map(singleposter => 
+    console.log(singleposter)
+    )
   return (
-    <SeasonDiv>
-      {poster.poster.name}
+    <CurrentSeason>
+    {poster.poster.map((singleposter, index) =>
+      <SeasonDiv key={index}>
+      {singleposter.name}
       <Backdrop
-        bgImage={`https://image.tmdb.org/t/p/w200/${poster.poster.poster_path}`}
+        bgImage={`https://image.tmdb.org/t/p/w200/${singleposter.poster_path}`}
       />
     </SeasonDiv>
+    )}
+    </CurrentSeason>
+    
   );
 }
 

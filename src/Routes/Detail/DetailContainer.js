@@ -49,6 +49,7 @@ export default class extends React.Component {
     console.log('before calling presenter bvoiz!');
     return (
       <DetailPresenter
+        pathname={this.props.location.pathname}
         result={result}
         error={error}
         loading={loading}

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Route, Link, withRouter, Switch } from "react-router-dom";
 import styled, { keyframes } from 'styled-components';
 
+import Season from '../../Components/Season';
 import Loader from '../../Components/Loader';
 import Productions from '../../Components/Productions';
 import Video from '../../Components/Video';
@@ -102,7 +104,7 @@ const IMDBButton = styled.span`
   }
 `;
 
-function DetailPresenter({ result, loading, error, isMovie }) {
+function DetailPresenter({ pathname, result, loading, error, isMovie }) {
   const [isYoutube, setYoutube] = useState(false);
 
   function buttonClick(e) {
@@ -115,7 +117,9 @@ function DetailPresenter({ result, loading, error, isMovie }) {
     e.preventDefault();
     setYoutube(false);
   }
-
+  console.log(result)
+  console.log('here is presenter')
+  console.log(pathname);
   return loading ? (
     <>
       <Helmet>
@@ -178,24 +182,27 @@ function DetailPresenter({ result, loading, error, isMovie }) {
           </ItemContainer>
           <Overview>{result.overview}</Overview>
           <ButtonContainer>
-            <TwoButtons onClick={buttonClick}>Videos</TwoButtons>
+            <Link to={`${pathname}/videos`}><TwoButtons>Videos</TwoButtons></Link>
             <TwoButtons onClick={buttonnClick}>Productions</TwoButtons>
+            <Link to={`/show/${result.id}/seasons`}>Seasons</Link>
           </ButtonContainer>
           <ChallengeContainer>
-            {isYoutube ? (
-              <Video
-                sourceURL={`https://www.youtube.com/embed/${result.videos.results[0].key}`}
-              />
-            ) : (
-              <Productions
-                companies={result.production_companies}
-                countries={
-                  isMovie ? result.production_countries : result.seasons
-                }
-                isMovie={isMovie}
-                moreInfo={result}
-              />
-            )}
+            <Switch>
+              <Route path={`${pathname}/videos`}>
+                <Video sourceURL={`https://www.youtube.com/embed/${result.videos.results[0].key}`}/></Route>
+               <Route 
+                path={`${pathname}/productions`}
+                component={() => 
+                  <Productions 
+                  companies={result.production_companies}
+                  countries={
+                    isMovie ? result.production_countries : result.seasons
+                  }
+                  isMovie={isMovie}
+                  moreInfo={result}/> } 
+               />
+              <Route path='/show/:id/seasons' component={() => <Season poster={result.seasons}/>} />
+            </Switch>
           </ChallengeContainer>
         </Data>
       </Content>

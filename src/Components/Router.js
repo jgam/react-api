@@ -10,6 +10,7 @@ import TV from 'Routes/TV';
 import Search from 'Routes/Search';
 import Header from 'Components/Header';
 import Detail from 'Routes/Detail';
+import Season from './Season';
 
 export default () => (
   <Router>
@@ -20,6 +21,8 @@ export default () => (
         <Route path='/tv' component={TV} />
         <Route path='/search' component={Search} />
         <Route path='/movie/:id' component={Detail} />
+        <Route path='/show/:id' component={Detail} />
+        {/* <Route path='/show/:id/seasons' component={Season} /> */}
         <Route path='/show/:id' component={Detail} />
         <Redirect from='*' to='/' />
       </Switch>
