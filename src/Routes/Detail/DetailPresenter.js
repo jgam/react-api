@@ -88,7 +88,10 @@ const TwoButtons = styled.button`
   border-radius: 30px;
   margin-right: 20px;
   &:hover {
-    opacity: 0.7;
+    opacity: 0.5;
+  }
+  &:focus {
+    outline: none;
   }
 `;
 
